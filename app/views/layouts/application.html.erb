@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bookers2</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <% if user_signed_in? %>
+        <li class="nav-item">
+          <%= link_to "Home ", _path, method: :delete, class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Users', _path, class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Books', _path(current_user.id), class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to 'Log out', _path(current_user.id), class: 'nav-link text-dark' %>
+        </li>
+        
+        <% else %>
+        <li class="nav-item">
+          <%= link_to "Home", _path, class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "About", _path, class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Sign up", _path, class: 'nav-link text-dark' %>
+        </li>
+        <li class="nav-item">
+          <%= link_to "Log in", _path, class: 'nav-link text-dark' %>
+        </li>
+        <% end %>
+    <%= yield %>
+  </body>
+</html>
