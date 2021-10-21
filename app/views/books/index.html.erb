@@ -1,4 +1,19 @@
+
 <div class="container px-5 px-sm-0">
+
+    <div id="error_explanation">
+        <% if @book.errors.any? %>
+          <h3><%= @book.errors.count %> error prohibited this obj from being saved:
+          <ul>
+            <li>
+            <% @book.errors.full_messages.each do |message| %>
+              <%= message %>
+            <% end %>
+            </li>
+          </ul>
+        <% end %>
+      </div>
+
   <div class="row">
     <div class="col-md-3">
 
@@ -7,19 +22,19 @@
   <h2>User info</h2>
 
   <table class="table table-hover table-inverse">
-    <tr><%= attachment_image_tag @user, :profile_image, :fill, 63, 63, fallback: "no_image.jpg", size:'63x63' %></tr>
+    <tr><%= attachment_image_tag current_user, :profile_image, :fill, 63, 63, fallback: "NO_IMAGE.jpeg", size:'63x63' %></tr>
     <tr>
 	   <th>name</th>
-	   <th><%= @user.name %></th>
+	   <th><%= current_user.name %></th>
     </tr>
     <tr>
      <th>introduction</th>
-     <th><%= @user.introduction %></th>
+     <th><%= current_user.introduction %></th>
     </tr>
   </table>
 
   <div class="row">
-    <a><%=link_to "", edit_user_path(@user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user" %></a>
+    <%=link_to "", edit_user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user" %></a>
   </div>
 
 
@@ -36,7 +51,7 @@
 
 
 
-<div class="col-md-8 offset-md-1">
+  <div class="col-md-8 offset-md-1">
   <h2>Books</h2>
 　 <table class="table table-hover table-inverse">
 　 <thead>
@@ -51,19 +66,16 @@
   <tbody>
 　 <% @books.each do |book|%>
 　 <tr>
-　  <td>
-　    <span>
-　      <%=link_to user_path(book.user) do %>
-        <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, fallback: "NO_IMAGE.jpeg", size:'40x40' %>
-        <% end %>
-     </span>
-    </td>
+　  <td><span>
+　  <%=link_to user_path(book.user_id) do %>
+　  <%= attachment_image_tag book.user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
+　  <% end %>
+　  </span></td>
   　<td><span><%=link_to book.title,book_path(book)%></span></td>
  　  <td><span><%=book.body%></span></td>
 　 </tr>
 　<%end%>
 　</tbody>
-
 
 　</table>
   </div>

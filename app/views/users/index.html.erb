@@ -1,0 +1,60 @@
+<div class="container px-5 px-sm-0">
+  <div class="row">
+    <div class="col-md-3">
+
+  <h2>User info</h2>
+
+  <table class="table table-hover table-inverse">
+    <tr><%= attachment_image_tag current_user, :profile_image, :fill, 63, 63, fallback: "NO_IMAGE.jpeg", size:'63x63' %></tr>
+    <tr>
+	   <th>name</th>
+	   <th><%= current_user.name %></th>
+    </tr>
+    <tr>
+     <th>introduction</th>
+     <th><%= current_user.introduction %></th>
+    </tr>
+  </table>
+
+  <div class="row">
+    <%=link_to "", edit_user_path(current_user), class: "btn btn-outline-secondary btn-block fas fa-user-cog edit_user" %></a>
+  </div>
+
+
+  <h2 class="mt-3">New book</h2>
+  <%= form_with model: @book, url:books_path, local:true do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  <h4>opionion</h4>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book', class: "btn btn-success" %>
+  <% end %>
+
+    </div>
+
+
+
+ <div class="col-md-8 offset-md-1">
+  <h2>Users</h2>
+　 <table class="table table-hover table-inverse">
+　 <thead>
+    <tr>
+      <th>image</th>
+      <th>name</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+　 <% @users.each do |user|%>
+　 <tr>
+　  <td><span><%= attachment_image_tag user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %></span></td>
+  　<td><span><%= user.name %></span></td>
+ 　  <td><span><%= link_to "Show", user_path(user) %></span></td>
+　 </tr>
+　<%end%>
+
+　</table>
+  </div>
+ </div>
+</div>
